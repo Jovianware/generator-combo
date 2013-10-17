@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= gameName %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <script data-main="mainWrapper" src="support/requirejs/require.js"></script>
+
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: #444;
+        overflow: hidden;
+      }
+
+      #pleasewait {
+        color: white;
+        font-family: Helvetica, sans-serif;
+        font-size: 32px;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      #container {
+        display: none;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <div id="pleasewait">Please Wait...</div>
+  </body>
+
+</html>
