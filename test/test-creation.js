@@ -4,7 +4,6 @@
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
-
 describe('combo generator', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
@@ -21,14 +20,23 @@ describe('combo generator', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      // add files you expect to exist here.
-      '.jshintrc',
-      '.editorconfig'
+      '.bowerrc',
+      '.editorconfig',
+      '.gitignore',
+      'bower.json',
+      'Gruntfile.js',
+      'package.json',
+      'src/ComboGame.js',
+      'src/assets',
+      'src/index.html',
+      'src/main.js',
+      'src/mainWrapper.js'
     ];
 
     helpers.mockPrompt(this.app, {
-      'someOption': true
+      'gameName': 'Combo Game'
     });
+
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(expected);
