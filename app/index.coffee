@@ -24,9 +24,11 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     if @env.options.coffee
       @sourceRoot path.join __dirname, '/templates/coffeescript'
       @ext = '.coffee'
+      @mainPrefix = 'cs!'
     else
       @sourceRoot path.join __dirname, '/templates/javascript'
       @ext = '.js'
+      @mainPrefix = ''
 
     @combo = """ _____  _____ ___  _________  _____
                 /  __ \\|  _  ||  \\/  || ___ \\|  _  |
@@ -62,7 +64,7 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     @template 'src/_Game'+@ext, 'src/' + @_.camelize(@gameName)+@ext
     @template 'src/_main'+@ext, 'src/main'+@ext
     @template '../common/src/_index.html', 'src/index.html'
-    @copy 'src/mainWrapper.js', 'src/mainWrapper.js'
+    @template '../common/src/_mainWrapper.js', 'src/mainWrapper.js'
 
     # package configs/dotfiles
     @template '../common/_package.json', 'package.json'

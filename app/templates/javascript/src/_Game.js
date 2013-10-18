@@ -1,4 +1,4 @@
-define('<%= _.classify(gameName) %>', [
+define([
   'cs!combo/cg'
 ], function (
   cg

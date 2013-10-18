@@ -18,7 +18,7 @@ require.config({
 });
 
 require([
-  'main',
+  '<%= mainPrefix %>main',
   'coffee-script'
 ], function(main) {
   main();
