@@ -37,12 +37,12 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
                 | \\__/\\\\ \\_/ /| |  | || |_/ /\\ \\_/ /
                  \\____/ \\___/ \\_|  |_/\\____/  \\___/
 
-                 """
+             """
 
   askFor: ->
     cb = @async()
 
-    # have Yeoman greet the user.
+    # have ~~~Yeoman~~~ COMBO greet the user.
     console.log @combo
 
     prompts = [
@@ -64,7 +64,8 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     @template 'src/_Game'+@ext, 'src/' + @_.classify(@gameName)+@ext
     @template 'src/_main'+@ext, 'src/main'+@ext
     @template '../common/src/_index.html', 'src/index.html'
-    @template '../common/src/_mainWrapper.js', 'src/mainWrapper.js'
+    @template '../common/src/_devWrapper.js', 'src/devWrapper.js'
+    @template '../common/src/_prodWrapper.js', 'src/prodWrapper.js'
 
     # package configs/dotfiles
     @template '../common/_package.json', 'package.json'

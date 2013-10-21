@@ -14,12 +14,16 @@ require.config({
     name: 'combo',
     location: 'support/combo/src/combo'
   }
-  ]
+  ],
+  paths: {
+    'implement': 'support/combo/src/combo/web/implement'
+  }
 });
 
 require([
-  '<%= mainPrefix %>main',
-  'coffee-script'
-], function(main) {
-  main();
+  'cs!combo/index',
+], function (combo) {
+  require(['<%= mainPrefix %>main'], function (main) {
+    main();
+  })
 });

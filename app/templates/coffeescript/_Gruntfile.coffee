@@ -10,10 +10,11 @@ module.exports = (grunt) ->
             'cs': 'support/require-cs/cs'
             'coffee-script': 'support/coffee-script/index'
             'combo': 'support/combo/src/combo'
+            'implement': 'support/combo/src/combo/web/implement'
           stubModules: ['cs', 'coffee-script']
           name: 'support/almond/almond'
-          include: 'mainWrapper'
-          insertRequire: ['mainWrapper']
+          include: 'prodWrapper'
+          insertRequire: ['prodWrapper']
           out: 'src/main-built.js'
           optimize: 'uglify2'
 

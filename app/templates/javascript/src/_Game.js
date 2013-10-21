@@ -4,18 +4,13 @@ define([
   cg
 ) {
 
-  var <%= _.classify(gameName) %> = function (App, forceCanvas) {
-    _<%= _.classify(gameName) %> = App.extend({
-      forceCanvas: !!forceCanvas,
-      init: function () {
-        this.super();
+  <%= _.classify(gameName) %> = cg.App.extend({
+    init: function () {
+      this.super();
 
-        cg.log('Combo game initialized!');
-      }
-    });
-
-    return _<%= _.classify(gameName) %>;
-  };
+      cg.log('Combo game initialized!');
+    }
+  });
 
   return <%= _.classify(gameName) %>;
 });
