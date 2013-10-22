@@ -5,6 +5,7 @@ define([
 ) {
 
   <%= _.classify(gameName) %> = cg.App.extend({
+    name: '<%= gameName %>',
     init: function () {
       this.super();
 

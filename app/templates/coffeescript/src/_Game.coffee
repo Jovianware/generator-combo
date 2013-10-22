@@ -5,6 +5,7 @@ define [
 ) ->
 
   class <%= _.classify(gameName) %> extends cg.App
+    name: '<%= gameName %>'
     init: ->
       super
 
