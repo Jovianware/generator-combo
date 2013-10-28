@@ -73,5 +73,4 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     @copy '../common/bowerrc', '.bowerrc'
     @copy '../common/editorconfig', '.editorconfig'
     @copy '../common/gitignore', '.gitignore'
-
-    # fs.symlinkSync path.join(@destinationRoot(), '../support/combo'), path.join(@destinationRoot(), 'src/combo/src'), 'dir'
+    @copy '../common/src/assets/logo.png', 'src/assets/logo.png'

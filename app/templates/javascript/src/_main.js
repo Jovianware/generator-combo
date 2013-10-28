@@ -1,31 +1,23 @@
 define([
+  'cs!combo/cg',
   '<%= _.classify(gameName) %>'
 ], function (
+  cg,
   <%= _.classify(gameName) %>
 ) {
-  var getParameterByName = function (name) {
-    var regex, results;
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
-    results = regex.exec(location.search);
-    if (results === null) {
-      return "";
-    } else {
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-  };
 
   return function () {
-    var game, pleasewait, container;
+    var pleasewait,
+        container;
 
-    game = new <%= _.classify(gameName) %>({
+    cg.init({
+      name: '<%= gameName %>',
       container: 'container',
-      forceCanvas: parseInt(getParameterByName('forceCanvas'))
+      forceCanvas: !!parseInt(cg.env.getParameterByName('forceCanvas')),
+      backgroundColor: 0xFFFFFF
     });
 
-    window.game = game;
-
-    game.run();
+    window.app = cg.stage.addChild(new <%= _.classify(gameName) %>);
 
     pleasewait = document.getElementById('pleasewait');
     pleasewait.style.display = 'none';
@@ -33,4 +25,5 @@ define([
     container = document.getElementById('container');
     container.style.display = 'inherit';
   };
+
 });

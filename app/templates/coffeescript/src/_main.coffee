@@ -1,20 +1,18 @@
 define [
+  'cs!combo/cg'
   'cs!<%= _.classify(gameName) %>'
 ], (
+  cg
   <%= _.classify(gameName) %>
 ) ->
-  getParameterByName = (name) ->
-    name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]')
-    regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
-    results = regex.exec(location.search)
-    return if results == null then '' else decodeURIComponent(results[1].replace(/\+/g, ' '))
-
   return ->
-    app = new <%= _.classify(gameName) %>
+    cg.init
+      name: '<%= gameName %>'
       container: 'container'
-      forceCanvas: parseInt getParameterByName('forceCanvas')
+      forceCanvas: !!parseInt(cg.env.getParameterByName('forceCanvas'))
+      backgroundColor: 0xFFFFFF
 
-    app.run()
+    window.app = cg.stage.addChild new <%= _.classify(gameName) %>
 
     pleasewait = document.getElementById 'pleasewait'
     pleasewait.style.display = 'none'
