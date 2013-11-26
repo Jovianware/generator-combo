@@ -1,3 +1,6 @@
+var PORT = process.env.PORT || 9042,
+    HOSTNAME = process.env.HOSTNAME || '0.0.0.0';
+
 module.exports = function (grunt) {
   var config = {
     pkg: grunt.file.readJSON('package.json'),
@@ -25,20 +28,21 @@ module.exports = function (grunt) {
     connect: {
       server: {
         options: {
-          port: 9042,
+          port: PORT,
           base: 'src',
           directory: 'src',
-          keepalive: true
+          keepalive: true,
+          hostname: HOSTNAME
         }
       }
     },
 
     open: {
       dev: {
-        path: 'http://127.0.0.1:9042/?debug=1'
+        path: 'http://' + HOSTNAME + ':' + PORT + '/?debug=1'
       },
       prod: {
-        path: 'http://127.0.0.1:9042/'
+        path: 'http://' + HOSTNAME + ':' + PORT + '/'
       }
     }
   };
