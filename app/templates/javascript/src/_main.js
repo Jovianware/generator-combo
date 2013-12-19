@@ -1,29 +1,62 @@
 define([
   'cs!combo/cg',
+  'cs!combo/plugins/ui/UI',
+  'cs!combo/plugins/physics/Physics',
   '<%= _.classify(gameName) %>'
-], function (
+], function(
   cg,
+  UI,
+  Physics,
   <%= _.classify(gameName) %>
 ) {
 
-  return function () {
-    var pleasewait,
-        container;
+  // The main function must be *returned*, not executed directly:
+  return function() {
 
+    var loadingScreen;
+
+    // App-wide plugins need to be loaded before `cg.init` is called:
+    cg.plugin(UI);
+    cg.plugin(Physics);
+
+    // This will set up graphics, sound, input, data, plugins, and start our game loop:
     cg.init({
       name: '<%= gameName %>',
-      container: 'container',
-      forceCanvas: !!parseInt(cg.env.getParameterByName('forceCanvas')),
-      backgroundColor: 0xFFFFFF
+      width: 1280,
+      height: 720,
+      backgroundColor: 0x222222,
+      forceCanvas: !!parseInt(cg.env.getParameterByName('forceCanvas'))
     });
 
-    window.app = cg.stage.addChild(new <%= _.classify(gameName) %>);
+    loadingScreen = cg.stage.addChild(new cg.extras.LoadingScreen);
+    loadingScreen.begin();
 
-    pleasewait = document.getElementById('pleasewait');
-    pleasewait.style.display = 'none';
+    cg.assets.loadJSON('assets.json').then(function(pack) {
+      cg.assets.preload(pack, {
+        error: function(src) {
+          cg.error('Failed to load asset ' + src);
+        },
+        progress: function(src, data, loaded, count) {
+          cg.log("Loaded '" + src + "'");
+          loadingScreen.setProgress(loaded / count);
+        },
+        complete: function() {
+          loadingScreen.complete().then(function() {
+            loadingScreen.destroy();
+            cg.stage.addChild(new <%= _.classify(gameName) %>({
+              id: 'main'
+            }));
+          });
+        }
+      });
+    }, function(err) {
+      throw new Error('Failed to load assets.json: ' + err.message);
+    });
 
-    container = document.getElementById('container');
-    container.style.display = 'inherit';
+    // Hide the pre-pre loading "Please Wait..." message:
+    document.getElementById('pleasewait').style.display = 'none';
+
+    // Show our game container:
+    document.getElementById('combo-game').style.display = 'inherit';
   };
-
 });

@@ -1,9 +1,9 @@
-var PORT = process.env.PORT || 9042,
-    HOSTNAME = process.env.HOSTNAME || '0.0.0.0';
-
 module.exports = function (grunt) {
   var config = {
     pkg: grunt.file.readJSON('package.json'),
+
+    HOSTNAME: process.env.HOSTNAME || '0.0.0.0',
+    PORT: process.env.PORT || 9042,
 
     requirejs: {
       build: {
@@ -13,12 +13,12 @@ module.exports = function (grunt) {
             'cs': 'support/require-cs/cs',
             'coffee-script': 'support/coffee-script/index',
             'combo': 'support/combo/src/combo',
-            'implement': 'support/combo/src/combo/web/implement'
+            'implement': 'support/combo/src/combo/implementations/web/index'
           },
           stubModules: ['cs', 'coffee-script'],
           name: 'support/almond/almond',
-          include: 'prodWrapper',
-          insertRequire: ['prodWrapper'],
+          include: 'support/prodWrapper',
+          insertRequire: ['support/prodWrapper'],
           out: 'src/main-built.js',
           optimize: 'uglify2'
         }
@@ -28,21 +28,21 @@ module.exports = function (grunt) {
     connect: {
       server: {
         options: {
-          port: PORT,
+          port: '<%%= PORT %>',
           base: 'src',
           directory: 'src',
           keepalive: true,
-          hostname: HOSTNAME
+          hostname: '<%%= HOSTNAME %>'
         }
       }
     },
 
     open: {
       dev: {
-        path: 'http://' + HOSTNAME + ':' + PORT + '/?debug=1'
+        path: 'http://<%%= HOSTNAME %>:<%%= PORT %>/?debug=1'
       },
       prod: {
-        path: 'http://' + HOSTNAME + ':' + PORT + '/'
+        path: 'http://<%%= HOSTNAME %>:<%%= PORT %>/'
       }
     }
   };

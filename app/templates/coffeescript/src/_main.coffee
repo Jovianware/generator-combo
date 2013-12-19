@@ -1,21 +1,50 @@
 define [
   'cs!combo/cg'
+  'cs!combo/plugins/ui/UI'
+  'cs!combo/plugins/physics/Physics'
   'cs!<%= _.classify(gameName) %>'
 ], (
   cg
+  UI
+  Physics
   <%= _.classify(gameName) %>
 ) ->
+
+  # The main function must be *returned*, not executed directly:
   return ->
+
+    # App-wide plugins need to be loaded before `cg.init` is called:
+    cg.plugin UI
+    cg.plugin Physics
+
+    # This will set up graphics, sound, input, data, plugins, and start our game loop:
     cg.init
       name: '<%= gameName %>'
-      container: 'container'
+      width: 1280
+      height: 720
+      backgroundColor: 0x222222
       forceCanvas: !!parseInt(cg.env.getParameterByName('forceCanvas'))
-      backgroundColor: 0xFFFFFF
 
-    window.app = cg.stage.addChild new <%= _.classify(gameName) %>
+    loadingScreen = cg.stage.addChild new cg.extras.LoadingScreen
+    loadingScreen.begin()
 
-    pleasewait = document.getElementById 'pleasewait'
-    pleasewait.style.display = 'none'
+    cg.assets.loadJSON('assets.json').then (pack) ->
+      cg.assets.preload pack,
+        error: (src) ->
+          cg.error 'Failed to load asset ' + src
+        progress: (src, data, loaded, count) ->
+          cg.log "Loaded '#{src}'"
+          loadingScreen.setProgress loaded/count
+        complete: ->
+          loadingScreen.complete().then ->
+            loadingScreen.destroy()
+            cg.stage.addChild new <%= _.classify(gameName) %>
+              id: 'main'
+    , (err) ->
+      throw new Error 'Failed to load assets.json: ' + err.message
 
-    container = document.getElementById 'container'
-    container.style.display = 'inherit'
+    # Hide the pre-pre loading "Please Wait..." message:
+    document.getElementById('pleasewait').style.display = 'none'
+
+    # Show our game container:
+    document.getElementById('combo-game').style.display = 'inherit'

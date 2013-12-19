@@ -4,24 +4,23 @@ fs = require 'fs'
 
 module.exports = class ComboGenerator extends yeoman.generators.Base
   constructor: (args, options, config) ->
-    yeoman.generators.Base.apply this, arguments
+    super
+
     @on 'end', ->
       @installDependencies skipInstall: options['skip-install']
 
     @pkg = JSON.parse @readFileAsString path.join __dirname, '../package.json'
 
-    unless @env.options.coffee?
-      @option('coffee')
+    @option 'coffee',
+      type: 'Boolean'
+      desc: 'Generate CoffeeScript instead of JavaScript'
 
-      # attempt to detect if user is using CS or not
-      # if cml arg provided, use that; else look for the existence of cs
-      if (!@options.coffee && @expandFiles('/src/**/*.coffee', {}).length > 0)
-        @options.coffee = true
+    # attempt to detect if user is using CS or not
+    # if cml arg provided, use that; else look for the existence of cs
+    if (!@options.coffee && @expandFiles('/src/**/*.coffee', {}).length > 0)
+      @options.coffee = true
 
-      @env.options.coffee = @options.coffee
-
-
-    if @env.options.coffee
+    if @options.coffee
       @sourceRoot path.join __dirname, '/templates/coffeescript'
       @ext = '.coffee'
       @mainPrefix = 'cs!'
@@ -42,7 +41,7 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
   askFor: ->
     cb = @async()
 
-    # have ~~~Yeoman~~~ COMBO greet the user.
+    # have ~~Yeoman~~ COMBO greet the user.
     console.log @combo
 
     prompts = [
@@ -59,13 +58,14 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     @template '_Gruntfile'+@ext, 'Gruntfile'+@ext
 
     @mkdir 'src'
+    @mkdir 'src/support'
     @mkdir 'src/assets'
 
     @template 'src/_ComboGame'+@ext, 'src/' + @_.classify(@gameName)+@ext
     @template 'src/_main'+@ext, 'src/main'+@ext
     @template '../common/src/_index.html', 'src/index.html'
-    @template '../common/src/_devWrapper.js', 'src/devWrapper.js'
-    @template '../common/src/_prodWrapper.js', 'src/prodWrapper.js'
+    @template '../common/src/support/_devWrapper.js', 'src/support/devWrapper.js'
+    @template '../common/src/support/_prodWrapper.js', 'src/support/prodWrapper.js'
 
     # package configs/dotfiles
     @template '../common/_package.json', 'package.json'
@@ -73,4 +73,5 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     @copy '../common/bowerrc', '.bowerrc'
     @copy '../common/editorconfig', '.editorconfig'
     @copy '../common/gitignore', '.gitignore'
+    @copy '../common/src/assets.json', 'src/assets.json'
     @copy '../common/src/assets/logo.png', 'src/assets/logo.png'

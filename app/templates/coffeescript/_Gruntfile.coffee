@@ -1,9 +1,9 @@
-PORT = process.env.PORT ? 9042
-HOSTNAME = process.env.HOSTNAME ? '0.0.0.0'
-
 module.exports = (grunt) ->
   config =
     pkg: grunt.file.readJSON 'package.json'
+
+    HOSTNAME: process.env.HOSTNAME or '0.0.0.0'
+    PORT: process.env.PORT or 9042
 
     requirejs:
       build:
@@ -13,28 +13,28 @@ module.exports = (grunt) ->
             'cs': 'support/require-cs/cs'
             'coffee-script': 'support/coffee-script/index'
             'combo': 'support/combo/src/combo'
-            'implement': 'support/combo/src/combo/web/implement'
+            'implement': 'support/combo/src/combo/implementations/web/index'
           stubModules: ['cs', 'coffee-script']
           name: 'support/almond/almond'
-          include: 'prodWrapper'
-          insertRequire: ['prodWrapper']
+          include: 'support/prodWrapper'
+          insertRequire: ['support/prodWrapper']
           out: 'src/main-built.js'
           optimize: 'uglify2'
 
     connect:
       server:
         options:
-          port: PORT
+          port: '<%%= PORT %>'
           base: 'src'
           directory: 'src'
           keepalive: true
-          hostname: HOSTNAME
+          hostname: '<%%= HOSTNAME %>'
 
     open:
       dev:
-        path: "http://127.0.0.1:#{PORT}/?debug=1"
+        path: 'http://<%%= HOSTNAME %>:<%%= PORT %>/?debug=1'
       prod:
-        path: "http://127.0.0.1:#{PORT}/"
+        path: 'http://<%%= HOSTNAME %>:<%%= PORT %>/'
 
   grunt.initConfig config
 
