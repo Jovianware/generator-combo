@@ -10,11 +10,11 @@ define([
 
   var <%= name %> = <%= parentClass %>.extend('<%= name %>', {
     constructor: function (properties) {
-      this.super(properties);
+      this._super(properties);
     },
 
     update: function () {
-      this.super();
+      this._super();
     }
   });
 

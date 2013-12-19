@@ -6,7 +6,7 @@ define([
 
   var <%= name %> = <%= parentClass %>.extend('<%= name %>', {
     constructor: function () {
-      this.super.apply(this, arguments);
+      this._super.apply(this, arguments);
     },
   });
 
