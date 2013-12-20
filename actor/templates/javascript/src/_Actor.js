@@ -1,11 +1,13 @@
 define([
-  'cs!combo/cg',
+  'cs!combo/cg',<% if (baseType) { %>
   'cs!combo/plugins/physics/Physical',
-  'cs!combo/plugins/ui/Interactive'
+  'cs!combo/plugins/ui/Interactive'<% } else { %>
+  '<%= parentClass %>'<% } %>
 ], function (
-  cg,
+  cg,<% if (baseType) { %>
   Physical,
-  Interactive
+  Interactive<% } else { %>
+  <%= parentClass %><% } %>
 ) {
 
   var <%= name %> = <%= parentClass %>.extend('<%= name %>', {
@@ -16,9 +18,10 @@ define([
     update: function () {
       this._super();
     }
-  });
+  });<% if (baseType) { %>
 
   <%= name %>.plugin(Physical, Interactive);
+<% } %>
 
   return <%= name %>;
 });

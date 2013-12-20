@@ -17,7 +17,7 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
 
     # attempt to detect if user is using CS or not
     # if cml arg provided, use that; else look for the existence of cs
-    if (!@options.coffee && @expandFiles('/src/**/*.coffee', {}).length > 0)
+    if (!@options.coffee && @expandFiles('src/*.coffee', {}).length > 0)
       @options.coffee = true
 
     if @options.coffee

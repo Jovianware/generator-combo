@@ -1,15 +1,17 @@
 define [
-  'cs!combo/cg'
+  'cs!combo/cg'<% if (baseType) { %>
   'cs!combo/plugins/physics/Physical'
-  'cs!combo/plugins/ui/Interactive'
+  'cs!combo/plugins/ui/Interactive'<% } else { %>
+  '<%= parentClass %>'<% } %>
 ], (
-  cg
+  cg<% if (baseType) { %>
   Physical
-  Interactive
+  Interactive<% } else { %>
+  <%= parentClass %><% } %>
 ) ->
 
-  class <%= name %> extends <%= parentClass %>
-    @plugin Physical, Interactive
+  class <%= name %> extends <%= parentClass %><% if (baseType) { %>
+    @plugin Physical, Interactive<% } %>
     constructor: ->
       super
 
