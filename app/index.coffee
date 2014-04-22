@@ -66,12 +66,12 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     # package configs/dotfiles
     @template '../common/_package.json', 'package.json'
     @template '../common/_bower.json', 'bower.json'
+
+    @copy '../common/gulpfile.js', 'gulpfile.js'
+    @copy '../common/gulpfile.coffee', 'gulpfile.coffee'
+
     @copy '../common/bowerrc', '.bowerrc'
     @copy '../common/editorconfig', '.editorconfig'
     @copy '../common/gitignore', '.gitignore'
     @copy '../common/src/assets.json', 'src/assets.json'
     @copy '../common/src/assets/logo.png', 'src/assets/logo.png'
-
-    @copy 'gulpfile.js', 'gulpfile.js'
-    if @ext is '.coffee'
-      @copy 'gulpfile.coffee', 'gulpfile.coffee'

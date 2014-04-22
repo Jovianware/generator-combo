@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "combo": "namuol/combo.js",
+    "combo": "git+ssh://git@github.com/namuol/combo.js.git",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
     "uglify-js": "^2.4.13",
@@ -16,7 +16,9 @@
     "gulp-if": "^1.0.0",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^0.2.1",
-    "through2": "^0.4.1"
+    "through2": "^0.4.1",
+    "gulp-open": "^0.2.8",
+    "gulp-connect": "^2.0.5"
   },
   "engines": {
     "node": ">=0.8.0"

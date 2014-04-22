@@ -1,5 +1,5 @@
 cg = require 'cg'
-combo = require 'index'
+require 'index'
 
 UI = require 'plugins/ui/UI'
 Physics = require 'plugins/physics/Physics'

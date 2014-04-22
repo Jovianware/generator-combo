@@ -1,6 +1,7 @@
 var cg = require('cg'),
-    UI = require('plugins/UI'),
-    Physics = require('plugins/Physics'),
+    combo = require('index'),
+    UI = require('plugins/ui/UI'),
+    Physics = require('plugins/physics/Physics'),
     <%= _.classify(gameName) %> = require('<%= _.classify(gameName) %>');
 
 module.exports = function() {
@@ -50,3 +51,5 @@ module.exports = function() {
   // Show our game container:
   document.getElementById('combo-game').style.display = 'inherit';
 };
+
+module.exports();
