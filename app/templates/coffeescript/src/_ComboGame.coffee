@@ -1,23 +1,19 @@
-define [
-  'cs!combo/cg'
-], (
-  cg
-) ->
+cg = require 'cg'
 
-  class <%= _.classify(gameName) %> extends cg.Scene
-    constructor: ->
-      super
+class <%= _.classify(gameName) %> extends cg.Scene
+  constructor: ->
+    super
 
-      @logo = @addChild new cg.SpriteActor
-        texture: 'logo'
-        anchorX: 0.5
-        anchorY: 0.5
-        x: cg.width/2
-        y: cg.height/2
+    @logo = @addChild new cg.SpriteActor
+      texture: 'logo'
+      anchorX: 0.5
+      anchorY: 0.5
+      x: cg.width/2
+      y: cg.height/2
 
-    update: ->
-      super
+  update: ->
+    super
 
-      @logo.rotation += 0.02
+    @logo.rotation += 0.02
 
-  return <%= _.classify(gameName) %>
+module.exports = <%= _.classify(gameName) %>

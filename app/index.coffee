@@ -55,8 +55,6 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
       cb()
 
   app: ->
-    @template '_Gruntfile'+@ext, 'Gruntfile'+@ext
-
     @mkdir 'src'
     @mkdir 'src/support'
     @mkdir 'src/assets'
@@ -64,8 +62,6 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     @template 'src/_ComboGame'+@ext, 'src/' + @_.classify(@gameName)+@ext
     @template 'src/_main'+@ext, 'src/main'+@ext
     @template '../common/src/_index.html', 'src/index.html'
-    @template '../common/src/support/_devWrapper.js', 'src/support/devWrapper.js'
-    @template '../common/src/support/_prodWrapper.js', 'src/support/prodWrapper.js'
 
     # package configs/dotfiles
     @template '../common/_package.json', 'package.json'
@@ -75,3 +71,7 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     @copy '../common/gitignore', '.gitignore'
     @copy '../common/src/assets.json', 'src/assets.json'
     @copy '../common/src/assets/logo.png', 'src/assets/logo.png'
+
+    @copy 'gulpfile.js', 'gulpfile.js'
+    if @ext is '.coffee'
+      @copy 'gulpfile.coffee', 'gulpfile.coffee'
