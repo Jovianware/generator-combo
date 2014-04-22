@@ -1,18 +1,6 @@
-define([
-  'cs!combo/cg'
-], function (
-  cg
-) {
+var cg = require('cg'),
+    <%= name %>;
 
-  var <%= name %> = <%= parentClass %>.extend('<%= name %>', {
-    constructor: function (properties) {
-      this._super(properties);
-    },
+<%= name %> = <%= parentClass %>.extend('<%= name %>');
 
-    update: function () {
-      this._super();
-    }
-  });
-
-  return <%= name %>;
-});
+module.exports = <%= name %>;

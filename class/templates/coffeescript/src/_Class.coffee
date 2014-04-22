@@ -1,11 +1,5 @@
-define [
-  'cs!combo/cg'
-], (
-  cg
-) ->
+cg = require 'cg'
 
-  class <%= name %> extends <%= parentClass %>
-    constructor: ->
-      super
+class <%= name %> extends <%= parentClass %>
 
-  return <%= name %>
+module.exports = <%= name %>
