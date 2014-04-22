@@ -24,13 +24,13 @@ describe('combo generator', function () {
       '.editorconfig',
       '.gitignore',
       'bower.json',
-      'Gruntfile.js',
+      'gulpfile.js',
+      'gulpfile.coffee',
       'package.json',
       'src/ComboGame.js',
       'src/assets',
       'src/index.html',
-      'src/main.js',
-      'src/mainWrapper.js'
+      'src/main.js'
     ];
 
     helpers.mockPrompt(this.app, {

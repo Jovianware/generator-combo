@@ -16,8 +16,7 @@ module.exports = function() {
     name: '<%= gameName %>',
     width: 1280,
     height: 720,
-    backgroundColor: 0x222222,
-    forceCanvas: !!parseInt(cg.env.getParameterByName('forceCanvas'))
+    backgroundColor: 0x222222
   });
 
   loadingScreen = cg.stage.addChild(new cg.extras.LoadingScreen);
