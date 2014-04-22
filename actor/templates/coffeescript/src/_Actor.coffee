@@ -1,21 +1,9 @@
-define [
-  'cs!combo/cg'<% if (baseType) { %>
-  'cs!combo/plugins/physics/Physical'
-  'cs!combo/plugins/ui/Interactive'<% } else { %>
-  '<%= parentClass %>'<% } %>
-], (
-  cg<% if (baseType) { %>
-  Physical
-  Interactive<% } else { %>
-  <%= parentClass %><% } %>
-) ->
+cg = require 'cg'<% if (baseType) { %>
+Physical = require 'plugins/physics/Physical'
+Interactive = require 'plugins/ui/Interactive'<% } else { %>
+<%= parentClass %> = require '<%= parentClass %>'<% } %>
 
-  class <%= name %> extends <%= parentClass %><% if (baseType) { %>
-    @plugin Physical, Interactive<% } %>
-    constructor: ->
-      super
+class <%= name %> extends <%= parentClass %><% if (baseType) { %>
+  @plugin Physical, Interactive<% } %>
 
-    update: ->
-      super
-
-  return <%= name %>
+module.exports = <%= name %>

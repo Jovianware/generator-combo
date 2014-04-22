@@ -1,27 +1,11 @@
-define([
-  'cs!combo/cg',<% if (baseType) { %>
-  'cs!combo/plugins/physics/Physical',
-  'cs!combo/plugins/ui/Interactive'<% } else { %>
-  '<%= parentClass %>'<% } %>
-], function (
-  cg,<% if (baseType) { %>
-  Physical,
-  Interactive<% } else { %>
-  <%= parentClass %><% } %>
-) {
+var cg = require('cg')<% if (baseType) { %>,
+    Physical = require('plugins/physics/Physical'),
+    Interactive = require('plugins/ui/Interactive')<% } else { %>,
+    <%= parentClass %> = require('<%= parentClass %>')<% } %>,
+    <%= name %>;
 
-  var <%= name %> = <%= parentClass %>.extend('<%= name %>', {
-    constructor: function (properties) {
-      this._super(properties);
-    },
+<%= name %> = <%= parentClass %>.extend('<%= name %>');<% if (baseType) { %>
 
-    update: function () {
-      this._super();
-    }
-  });<% if (baseType) { %>
+<%= name %>.plugin(Physical, Interactive);<% } %>
 
-  <%= name %>.plugin(Physical, Interactive);
-<% } %>
-
-  return <%= name %>;
-});
+module.exports = <%= name %>;
