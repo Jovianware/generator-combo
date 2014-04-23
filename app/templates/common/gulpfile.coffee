@@ -8,13 +8,25 @@ uglify = require 'gulp-uglify'
 gulpif = require 'gulp-if'
 connect = require 'gulp-connect'
 open = require 'gulp-open'
+notify = require 'gulp-notify'
 
 browserify = require 'browserify'
 coffeeify = require 'coffeeify'
 watchify = require 'watchify'
 
+handleErrors = ->
+  # Send error to notification center with gulp-notify
+  notify.onError(
+    title: 'Compile Error'
+    message: "\n<%= error.toString().replace('#{__dirname}/','') %>"
+  ).apply @, arguments
+
+  # Keep gulp from hanging on this task
+  @emit 'end'
+
 bundle = (b, debug=false) ->
   b.bundle({debug: true})
+  .on 'error', handleErrors
   .pipe exorcist path.join __dirname, 'src/main-built.js.map'
   .pipe source 'main-built.js'
   .pipe gulpif !debug, streamify uglify
