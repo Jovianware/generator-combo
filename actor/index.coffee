@@ -14,6 +14,7 @@ module.exports = class ActorGenerator extends ClassGenerator
     super
 
     @parentClass = @options.extends or 'cg.SpriteActor'
+    @baseType = @parentClass in ['cg.SpriteActor', 'cg.Actor']
 
   app: ->
     @template 'src/_Actor'+@ext, 'src/' + @name+@ext
