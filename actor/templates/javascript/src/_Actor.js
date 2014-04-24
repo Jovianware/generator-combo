@@ -4,7 +4,15 @@ var cg = require('cg')<% if (baseType) { %>,
     <%= parentClass %> = require('<%= parentClass %>')<% } %>,
     <%= name %>;
 
-<%= name %> = <%= parentClass %>.extend('<%= name %>');<% if (baseType) { %>
+<%= name %> = <%= parentClass %>.extend('<%= name %>', {
+  constructor: function (properties) {
+    this._super(properties);
+  },
+
+  update: function () {
+    this._super();
+  }
+});<% if (baseType) { %>
 
 <%= name %>.plugin(Physical, Interactive);<% } %>
 
