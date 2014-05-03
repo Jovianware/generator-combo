@@ -4,7 +4,7 @@ class <%= _.classify(gameName) %> extends cg.Scene
   constructor: ->
     super
 
-    @logo = @addChild new cg.SpriteActor
+    @logo = @addChild new cg.Actor
       texture: 'logo'
       anchorX: 0.5
       anchorY: 0.5

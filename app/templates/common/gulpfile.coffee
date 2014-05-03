@@ -6,13 +6,19 @@ streamify = require 'gulp-streamify'
 exorcist = require 'exorcist'
 uglify = require 'gulp-uglify'
 gulpif = require 'gulp-if'
-connect = require 'gulp-connect'
+connect = require 'connect'
 open = require 'gulp-open'
 notify = require 'gulp-notify'
 
 browserify = require 'browserify'
 coffeeify = require 'coffeeify'
 watchify = require 'watchify'
+
+paths =
+  images: [
+    'src/assets/**/*.png'
+    'src/assets/**/*.jpg'
+  ]
 
 handleErrors = ->
   # Send error to notification center with gulp-notify
@@ -38,7 +44,7 @@ createBundler = (_browserify) ->
   b = _browserify
     extensions: ['.coffee']
     paths: [
-      path.join __dirname, 'node_modules/combo/src/combo'
+      path.join __dirname, 'node_modules/combo/src'
       path.join __dirname, 'src'
     ]
 
@@ -48,7 +54,10 @@ createBundler = (_browserify) ->
 gulp.task 'build', ->
   bundle createBundler browserify
 
+livereload = null
+
 gulp.task 'watch', ->
+  # Code:
   b = createBundler watchify
   b.on 'update', ->
     bundle b, true
@@ -56,12 +65,22 @@ gulp.task 'watch', ->
       console.log a
   bundle b, true
 
+  # Assets:
+  gulp.watch paths.images, {}, (event) ->
+    console.log 'RELOAD IMAGE: ', event.path, event.type
+    setTimeout ->
+      livereload.reloadImage event.path.replace __dirname + '/src/', ''
+    , 500
+  return
+
 PORT = gutil.env.PORT || 9042
 
 gulp.task 'connect', ->
-  connect.server
-    root: __dirname + '/src'
-    port: PORT
+  livereload = require 'combo-livereload'
+  app = connect()
+    .use livereload
+    .use connect.static './src'
+  livereload.listen(require('http').createServer(app).listen(PORT))
 
 gulp.task 'open', ['watch'], ->
   gulp.src 'src/index.html'

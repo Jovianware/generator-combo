@@ -5,7 +5,7 @@ var cg = require('cg'),
   constructor: function (properties) {
     this._super(properties);
 
-    this.logo = this.addChild(new cg.SpriteActor({
+    this.logo = this.addChild(new cg.Actor({
       texture: 'logo',
       anchorX: 0.5,
       anchorY: 0.5,
