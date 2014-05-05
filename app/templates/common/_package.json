@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "combo": "git+ssh://git@github.com/namuol/combo.js.git",
-    "combo-livereload": "^0.0.1",
+    "combo-livereload": "^0.1.0",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
     "uglify-js": "^2.4.13",
