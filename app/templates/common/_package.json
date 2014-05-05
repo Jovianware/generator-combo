@@ -17,7 +17,6 @@
     "gulp-if": "^1.0.0",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^0.2.1",
-    "through2": "^0.4.1",
     "gulp-open": "^0.2.8",
     "gulp-notify": "^1.2.5",
     "gulp-inject": "^0.4.1",

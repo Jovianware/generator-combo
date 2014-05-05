@@ -6,10 +6,10 @@ Interactive = require 'plugins/ui/Interactive'<% } else { %>
 class <%= name %> extends <%= parentClass %><% if (baseType) { %>
   @plugin Physical, Interactive
   <% } %>
-  constructor: (properties) ->
-    super properties
+  init: ->
+    # Called when the actor is first created.
 
   update: ->
-    super
+    # Called once every frame.
 
 module.exports = <%= name %>

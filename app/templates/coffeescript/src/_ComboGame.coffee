@@ -1,9 +1,7 @@
 cg = require 'cg'
 
 class <%= _.classify(gameName) %> extends cg.Scene
-  constructor: ->
-    super
-
+  init: ->
     @logo = @addChild new cg.Actor
       texture: 'logo'
       anchorX: 0.5
@@ -12,8 +10,6 @@ class <%= _.classify(gameName) %> extends cg.Scene
       y: cg.height/2
 
   update: ->
-    super
-
     @logo.rotation += 0.02
 
 module.exports = <%= _.classify(gameName) %>

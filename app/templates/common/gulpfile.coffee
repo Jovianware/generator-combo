@@ -14,11 +14,33 @@ browserify = require 'browserify'
 coffeeify = require 'coffeeify'
 watchify = require 'watchify'
 
+DEFAULT_PORT = 9042
+
+usage = ->
+  console.log """
+  Usage: gulp <command> [options...]
+
+  gulp dev       : run a development server and open it in your browser
+    Options:
+      --port, -p : port number that the server will bind to (default #{DEFAULT_PORT})
+
+  gulp build     : build a production version of main-built.js
+  """
+
+gulp.task 'usage', usage
+gulp.task 'help', usage
+
 paths =
   images: [
     'src/assets/**/*.png'
     'src/assets/**/*.jpg'
   ]
+
+if (gutil.env._.length is 0) or (gutil.env.help?) or (gutil.env.h?)
+  usage()
+  process.exit -1
+
+console.log gutil.env
 
 handleErrors = ->
   # Send error to notification center with gulp-notify
@@ -73,19 +95,19 @@ gulp.task 'watch', ->
     , 500
   return
 
-PORT = gutil.env.PORT || 9042
+port = gutil.env.port || gutil.env.p || DEFAULT_PORT
 
 gulp.task 'connect', ->
   livereload = require 'combo-livereload'
   app = connect()
     .use livereload
     .use connect.static './src'
-  livereload.listen(require('http').createServer(app).listen(PORT))
+  livereload.listen(require('http').createServer(app).listen(port))
 
 gulp.task 'open', ['watch'], ->
   gulp.src 'src/index.html'
   .pipe open '',
-    url: "http://localhost:#{PORT}/index.html"
+    url: "http://localhost:#{port}/index.html"
 
 gulp.task 'default', ['build']
 gulp.task 'dev', ['connect', 'watch', 'open']

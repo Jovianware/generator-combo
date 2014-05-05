@@ -2,9 +2,7 @@ var cg = require('cg'),
     <%= _.classify(gameName) %>;
 
 <%= _.classify(gameName) %> = cg.Scene.extend('<%= _.classify(gameName) %>', {
-  constructor: function (properties) {
-    this._super(properties);
-
+  init: function () {
     this.logo = this.addChild(new cg.Actor({
       texture: 'logo',
       anchorX: 0.5,
@@ -15,8 +13,6 @@ var cg = require('cg'),
   },
 
   update: function () {
-    this._super();
-
     this.logo.rotation += 0.02;
   }
 });

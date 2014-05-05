@@ -5,12 +5,12 @@ var cg = require('cg')<% if (baseType) { %>,
     <%= name %>;
 
 <%= name %> = <%= parentClass %>.extend('<%= name %>', {
-  constructor: function (properties) {
-    this._super(properties);
+  init: function () {
+    // Called when the actor is first created.
   },
 
   update: function () {
-    this._super();
+    // Called once every frame.
   }
 });<% if (baseType) { %>
 

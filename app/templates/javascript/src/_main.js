@@ -2,7 +2,8 @@ var cg = require('cg'),
     combo = require('index'),
     UI = require('plugins/ui/UI'),
     Physics = require('plugins/physics/Physics'),
-    <%= _.classify(gameName) %> = require('<%= _.classify(gameName) %>');
+    <%= _.classify(gameName) %> = require('<%= _.classify(gameName) %>'),
+    assets = require('assets.json');
 
 module.exports = function() {
   var loadingScreen;
@@ -22,26 +23,22 @@ module.exports = function() {
   loadingScreen = cg.stage.addChild(new cg.extras.LoadingScreen);
   loadingScreen.begin();
 
-  cg.assets.loadJSON('assets.json').then(function(pack) {
-    cg.assets.preload(pack, {
-      error: function(src) {
-        cg.error('Failed to load asset ' + src);
-      },
-      progress: function(src, data, loaded, count) {
-        cg.log("Loaded '" + src + "'");
-        loadingScreen.setProgress(loaded / count);
-      },
-      complete: function() {
-        loadingScreen.complete().then(function() {
-          loadingScreen.destroy();
-          cg.stage.addChild(new <%= _.classify(gameName) %>({
-            id: 'main'
-          }));
-        });
-      }
-    });
-  }, function(err) {
-    throw new Error('Failed to load assets.json: ' + err.message);
+  cg.assets.preload(assets, {
+    error: function(src) {
+      cg.error('Failed to load asset ' + src);
+    },
+    progress: function(src, data, loaded, count) {
+      cg.log("Loaded '" + src + "'");
+      loadingScreen.setProgress(loaded / count);
+    },
+    complete: function() {
+      loadingScreen.complete().then(function() {
+        loadingScreen.destroy();
+        cg.stage.addChild(new <%= _.classify(gameName) %>({
+          id: 'main'
+        }));
+      });
+    }
   });
 
   // Hide the pre-pre loading "Please Wait..." message:

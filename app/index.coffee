@@ -56,7 +56,6 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
 
   app: ->
     @mkdir 'src'
-    @mkdir 'src/support'
     @mkdir 'src/assets'
 
     @template 'src/_ComboGame'+@ext, 'src/' + @_.classify(@gameName)+@ext
