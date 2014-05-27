@@ -33,6 +33,23 @@ module.exports = ->
         cg.stage.addChild new <%= _.classify(gameName) %>
           id: 'main'
 
+        cg.stage.addChild new cg.extras.PauseScreen
+          id: 'pauseScreen'
+
+        cg('#pauseScreen').hide()
+
+        pause = ->
+          cg.sound.pauseAll()
+          cg('#main').pause()
+          cg('#pauseScreen').show()
+
+        cg.on 'blur', pause
+
+        cg('#pauseScreen').on 'dismiss', ->
+          cg('#main').resume()
+          cg.sound.resumeAll()
+
+        pause()
   # Hide the pre-pre loading "Please Wait..." message:
   document.getElementById('pleasewait').style.display = 'none'
 

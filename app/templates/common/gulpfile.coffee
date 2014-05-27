@@ -40,8 +40,6 @@ if (gutil.env._.length is 0) or (gutil.env.help?) or (gutil.env.h?)
   usage()
   process.exit -1
 
-console.log gutil.env
-
 handleErrors = ->
   # Send error to notification center with gulp-notify
   notify.onError(

@@ -37,6 +37,27 @@ module.exports = function() {
         cg.stage.addChild(new <%= _.classify(gameName) %>({
           id: 'main'
         }));
+
+        cg.stage.addChild(new cg.extras.PauseScreen({
+          id: 'pauseScreen'
+        }));
+
+        cg('#pauseScreen').hide();
+
+        pause = function () {
+          cg.sound.pauseAll();
+          cg('#main').pause();
+          cg('#pauseScreen').show();
+        };
+
+        cg.on('blur', pause);
+
+        cg('#pauseScreen').on('dismiss', function () {
+          cg('#main').resume();
+          cg.sound.resumeAll();
+        });
+
+        pause();
       });
     }
   });
