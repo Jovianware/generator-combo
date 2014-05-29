@@ -5,17 +5,17 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/namuol/generator-combo",
-  "bugs": "https://github.com/namuol/generator-combo/issues",
+  "homepage": "https://github.com/Jovianware/generator-combo",
+  "bugs": "https://github.com/Jovianware/generator-combo/issues",
   "author": {
     "name": "Louis Acresti",
     "email": "louis.acresti@gmail.com",
-    "url": "https://github.com/namuol"
+    "url": "https://github.com/Jovianware"
   },
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/namuol/generator-combo.git"
+    "url": "git://github.com/Jovianware/generator-combo.git"
   },
   "scripts": {
     "test": "mocha"
