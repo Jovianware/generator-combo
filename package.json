@@ -1,6 +1,6 @@
 {
   "name": "generator-combo",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A combo game template generator for Yeoman",
   "keywords": [
     "yeoman-generator"
