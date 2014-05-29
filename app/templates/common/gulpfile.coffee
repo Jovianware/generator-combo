@@ -95,7 +95,7 @@ gulp.task 'watch', ->
 
 port = gutil.env.port || gutil.env.p || DEFAULT_PORT
 
-gulp.task 'connect', ->
+gulp.task 'connect', ['build'], ->
   livereload = require 'combo-livereload'
   app = connect()
     .use livereload
@@ -108,4 +108,4 @@ gulp.task 'open', ['watch'], ->
     url: "http://localhost:#{port}/index.html"
 
 gulp.task 'default', ['build']
-gulp.task 'dev', ['connect', 'watch', 'open']
+gulp.task 'dev', ['build', 'connect', 'watch', 'open']

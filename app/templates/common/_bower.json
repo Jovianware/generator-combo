@@ -1,6 +1,0 @@
-{
-  "name": "<%= _.slugify(gameName) %>",
-  "private": true,
-  "dependencies": {
-  }
-}
