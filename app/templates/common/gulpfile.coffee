@@ -102,7 +102,7 @@ gulp.task 'connect', ['build'], ->
     .use connect.static './src'
   livereload.listen(require('http').createServer(app).listen(port))
 
-gulp.task 'open', ['watch'], ->
+gulp.task 'open', ['connect'], ->
   gulp.src 'src/index.html'
   .pipe open '',
     url: "http://localhost:#{port}/index.html"
