@@ -32,8 +32,8 @@ gulp.task 'help', usage
 
 paths =
   images: [
-    'src/assets/**/*.png'
-    'src/assets/**/*.jpg'
+    'src/**/*.png'
+    'src/**/*.jpg'
   ]
 
 if (gutil.env._.length is 0) or (gutil.env.help?) or (gutil.env.h?)
@@ -77,25 +77,24 @@ gulp.task 'build', ->
 livereload = null
 
 gulp.task 'watch', ->
-  # Code:
-  b = createBundler watchify
-  b.on 'update', ->
-    bundle b, true
-    for a in arguments
-      console.log a
-  bundle b, true
-
   # Assets:
   gulp.watch paths.images, {}, (event) ->
     console.log 'RELOAD IMAGE: ', event.path, event.type
     setTimeout ->
       livereload.reloadImage event.path.replace __dirname + '/src/', ''
     , 500
-  return
+
+  # Code:
+  b = createBundler watchify
+  b.on 'update', ->
+    bundle b, true
+    for a in arguments
+      console.log a
+  return bundle b, true
 
 port = gutil.env.port || gutil.env.p || DEFAULT_PORT
 
-gulp.task 'connect', ['build'], ->
+gulp.task 'connect', ['watch'], ->
   livereload = require 'combo-livereload'
   app = connect()
     .use livereload
@@ -108,4 +107,4 @@ gulp.task 'open', ['connect'], ->
     url: "http://localhost:#{port}/index.html"
 
 gulp.task 'default', ['build']
-gulp.task 'dev', ['build', 'connect', 'watch', 'open']
+gulp.task 'dev', ['watch', 'connect', 'open']

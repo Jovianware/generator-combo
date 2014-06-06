@@ -1,4 +1,4 @@
-var cg = require('cg'),
+var cg = require('combo'),
     <%= _.classify(gameName) %>;
 
 <%= _.classify(gameName) %> = cg.Scene.extend('<%= _.classify(gameName) %>', {

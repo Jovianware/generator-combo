@@ -1,4 +1,4 @@
-cg = require 'cg'
+cg = require 'combo'
 
 class <%= _.classify(gameName) %> extends cg.Scene
   init: ->
