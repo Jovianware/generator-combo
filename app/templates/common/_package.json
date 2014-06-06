@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "combo": "git+ssh://git@github.com/namuol/combo.js.git",
+    "combo": "git+ssh://git@github.com/namuol/combo.js.git#0.3.6",
     "combo-livereload": "^0.1.0",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
