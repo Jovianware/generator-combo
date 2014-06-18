@@ -11,7 +11,6 @@ open = require 'gulp-open'
 notify = require 'gulp-notify'
 
 browserify = require 'browserify'
-coffeeify = require 'coffeeify'
 watchify = require 'watchify'
 
 DEFAULT_PORT = 9042
@@ -44,20 +43,18 @@ handleErrors = ->
   # Send error to notification center with gulp-notify
   notify.onError(
     title: 'Compile Error'
-    message: "\n<%= error.toString().replace('#{__dirname}/','') %>"
+    message: "\n<%%= error.toString().replace('#{__dirname}/','') %>"
   ).apply @, arguments
 
   # Keep gulp from hanging on this task
   @emit 'end'
 
 bundle = (b, debug=false) ->
-  b.bundle({debug: true})
+  b.bundle({debug: debug})
   .on 'error', handleErrors
-  .pipe exorcist path.join __dirname, 'src/main-built.js.map'
+  .pipe gulpif(debug, exorcist(path.join __dirname, 'src/main-built.js.map'))
   .pipe source 'main-built.js'
-  .pipe gulpif !debug, streamify uglify
-    inSourceMap: path.join __dirname, 'src/main-built.js.map'
-    outSourceMap: path.join __dirname, 'src/main-built.js.map'
+  .pipe gulpif(!debug, streamify(uglify))
   .pipe gulp.dest './src/'
 
 createBundler = (_browserify) ->
@@ -69,7 +66,7 @@ createBundler = (_browserify) ->
     ]
 
   b.add path.join __dirname, 'src/main'
-  b.transform coffeeify
+  return b
 
 gulp.task 'build', ->
   bundle createBundler browserify

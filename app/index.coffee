@@ -1,6 +1,7 @@
 path = require 'path'
 yeoman = require 'yeoman-generator'
 fs = require 'fs'
+coffee = require 'coffee-script'
 
 module.exports = class ComboGenerator extends yeoman.generators.Base
   constructor: (args, options, config) ->
@@ -23,11 +24,9 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     if @options.coffee
       @sourceRoot path.join __dirname, '/templates/coffeescript'
       @ext = '.coffee'
-      @mainPrefix = 'cs!'
     else
       @sourceRoot path.join __dirname, '/templates/javascript'
       @ext = '.js'
-      @mainPrefix = ''
 
     @combo = """ _____  _____ ___  _________  _____
                 /  __ \\|  _  ||  \\/  || ___ \\|  _  |
@@ -65,8 +64,12 @@ module.exports = class ComboGenerator extends yeoman.generators.Base
     # package configs/dotfiles
     @template '../common/_package.json', 'package.json'
 
-    @copy '../common/gulpfile.js', 'gulpfile.js'
-    @copy '../common/gulpfile.coffee', 'gulpfile.coffee'
+    @template '../common/_gulpfile.coffee', 'gulpfile.coffee'
+
+    # if @ext isnt '.coffee'
+    #   gulpfile_coffee = @dest.read 'gulpfile.coffee'
+    #   @dest.write 'gulpfile.js', coffee.compile(gulpfile_coffee, {bare:true})
+    #   @dest.delete 'gulpfile.coffee'
 
     @copy '../common/editorconfig', '.editorconfig'
     @copy '../common/gitignore', '.gitignore'

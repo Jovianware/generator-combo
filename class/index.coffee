@@ -33,11 +33,9 @@ module.exports = class ClassGenerator extends yeoman.generators.Base
     if @options.coffee
       @sourceRoot path.join @root(), '/templates/coffeescript'
       @ext = '.coffee'
-      @mainPrefix = 'cs!'
     else
       @sourceRoot path.join @root(), '/templates/javascript'
       @ext = '.js'
-      @mainPrefix = ''
 
     # TODO: autodetect and `require` extended class file
     # HACK: default doesn't work? yeoman bug? hmm...
